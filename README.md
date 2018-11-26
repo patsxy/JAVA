@@ -19,12 +19,19 @@
             data.setTitles(titles);
             //list
             List<List<Object>> rows = new Vector<>();
-            List<Object> row = new ArrayList<>();
+            List<Object> row = new ArrayList<>();  //行内有合并行列 请用List<ExclMultilieRows>
             row.add("12345678");
             row.add("中通速递");
             row.add("zhongtong");
             row.add("78564311");
             rows.addAll(rows);
+            //设置每列宽带
+            Integer widths[]=new Integer[]{3300, 5300,0,0};
+            List<Integer> colwidth = new ArrayList<>();
+            colwidth.addAll(colWidths.apply(widths));
+            data.setColsWidth(colwidth);
+            //设置行高
+            data.setColsHight(Short.parseShort("450"));
 
             data.setRows(rows);
             dataList.add(data);
