@@ -1672,11 +1672,14 @@ public class ExcelUtils {
         String excelFile = excelWork + "/" + destinationName;
         int byteread = 0; // 读取的字节数
         try {
-            File file = ResourceUtils.getFile(sourcePath);
+	    ClassPathResource resource = new ClassPathResource(sourcePath.replace("classpath:", ""));	
+            //File file = ResourceUtils.getFile(sourcePath);
             try (
 
-                    InputStream in = new FileInputStream(file); OutputStream out = new FileOutputStream(excelFile);) {
-
+                    //InputStream in = new FileInputStream(file);
+		InputStream in = resource.getInputStream();    
+		OutputStream out = new FileOutputStream(excelFile);) {
+				
                 byte[] buffer = new byte[1024];
 
                 while ((byteread = in.read(buffer)) != -1) {
