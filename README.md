@@ -22,6 +22,16 @@
             fontStyleList.add(style);
             heads.add(head)
             
+             List<ExcelMergedRegion> excelMergedRegionList=new ArrayList<>();
+            
+            ExcelMergedRegion excelMergedRegion=new ExcelMergedRegion();
+            excelMergedRegion.setFirstRow(0);
+            excelMergedRegion.setLastRow(0);
+            excelMergedRegion.setFirstCol(0);
+            excelMergedRegion.setLastCol(12);
+            excelMergedRegionList.add(excelMergedRegion);
+            data.setHeadMergedRegions(excelMergedRegionList);
+            
             
             title.add("订单编号");
             title.add("物流公司名称");
