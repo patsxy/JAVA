@@ -8,13 +8,15 @@
             List<List<String>> titles = new ArrayList<>();
             List<String> title = new ArrayList<>();
 
-
+            //sheet 名称
             data.setName("批量导入运单模板");
-            
+            //表头
             List heads=new ArrayList();
             List<ExcelFontStyle> fontStyleList=new ArrayList<>();
             List<String> head=new ArrayList<>();
+            //表头内容
             head.add("教学诊改数据清单");
+            //表头风格
             ExcelFontStyle style=new ExcelFontStyle();
             style.setFontHeightInPoints((short) 14);
             style.setColor(IndexedColors.LIGHT_BLUE.getIndex()); 
@@ -22,17 +24,18 @@
             fontStyleList.add(style);
             heads.add(head)
             
+            //表头合并列
              List<ExcelMergedRegion> excelMergedRegionList=new ArrayList<>();
             
             ExcelMergedRegion excelMergedRegion=new ExcelMergedRegion();
             excelMergedRegion.setFirstRow(0);
             excelMergedRegion.setLastRow(0);
             excelMergedRegion.setFirstCol(0);
-            excelMergedRegion.setLastCol(12);
+            excelMergedRegion.setLastCol(4);
             excelMergedRegionList.add(excelMergedRegion);
             data.setHeadMergedRegions(excelMergedRegionList);
             
-            
+            //列头
             title.add("订单编号");
             title.add("物流公司名称");
             title.add("物流公司编码");
