@@ -24,7 +24,7 @@
             row.add("中通速递");
             row.add("zhongtong");
             row.add("78564311");
-            rows.addAll(rows);
+            rows.add(row);
             //设置每列宽带
             Integer widths[]=new Integer[]{3300, 5300,0,0};
             List<Integer> colwidth = new ArrayList<>();
