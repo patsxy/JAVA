@@ -10,6 +10,19 @@
 
 
             data.setName("批量导入运单模板");
+            
+            List heads=new ArrayList();
+            List<ExcelFontStyle> fontStyleList=new ArrayList<>();
+            List<String> head=new ArrayList<>();
+            head.add("教学诊改数据清单");
+            ExcelFontStyle style=new ExcelFontStyle();
+            style.setFontHeightInPoints((short) 14);
+            style.setColor(IndexedColors.LIGHT_BLUE.getIndex()); 
+            style.setFillForegroundColor(new Color(255,255,255));
+            fontStyleList.add(style);
+            heads.add(head)
+            
+            
             title.add("订单编号");
             title.add("物流公司名称");
             title.add("物流公司编码");
