@@ -23,6 +23,7 @@
             style.setFillForegroundColor(new Color(255,255,255));
             fontStyleList.add(style);
             heads.add(head)
+            data.setHead(heads);
             
             //表头合并列
              List<ExcelMergedRegion> excelMergedRegionList=new ArrayList<>();
