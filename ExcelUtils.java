@@ -612,7 +612,7 @@ public class ExcelUtils {
 
         int startRow = rowIndex;
 
-        Function<Object, Boolean> is_Empty = o -> {
+        Function<Object, Boolean> is_not_Empty = o -> {
             if (o == null) {
                 return false;
             }
@@ -736,7 +736,7 @@ public class ExcelUtils {
 
                     if (cellData != null) {
 
-                        if (!is_Empty.apply(rowStytle != null && rowStytle.size() > 0 ? rowStytle.get(i) : null)) {
+                        if (!is_not_Empty.apply(rowStytle != null && rowStytle.size() > 0 ? rowStytle.get(i) : null)) {
                             cell.setCellValue(cellData.toString());
                         } else {
 
