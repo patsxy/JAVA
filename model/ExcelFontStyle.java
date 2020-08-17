@@ -39,7 +39,7 @@ public class ExcelFontStyle implements Serializable {
     private  boolean isWrapText=false;
     //行高
     private  Float   height;
-     //单元格样式
+     //单元格样式公式
     private List<ExcelCellType> excelCellTypeList;
 
 
