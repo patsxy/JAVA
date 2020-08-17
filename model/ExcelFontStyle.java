@@ -39,6 +39,8 @@ public class ExcelFontStyle implements Serializable {
     private  boolean isWrapText=false;
     //行高
     private  Float   height;
+     //单元格样式
+    private List<ExcelCellType> excelCellTypeList;
 
 
     public Color getBorderColor() {
@@ -152,6 +154,12 @@ public class ExcelFontStyle implements Serializable {
     public void setHeight(Float height) {
         this.height = height;
     }
+    public List<ExcelCellType> getExcelCellTypeList() {
+        return excelCellTypeList;
+    }
 
+    public void setExcelCellTypeList(List<ExcelCellType> excelCellTypeList) {
+        this.excelCellTypeList = excelCellTypeList;
+    }
 
 }
