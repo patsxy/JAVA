@@ -7,6 +7,10 @@
             ExcelData data = new ExcelData();
             List<List<String>> titles = new ArrayList<>();
             List<String> title = new ArrayList<>();
+            List<ExcelFontStyle> excelFontStyles=new ArrayList<>();
+
+
+
 
             //sheet 名称
             data.setName("批量导入运单模板");
@@ -52,6 +56,23 @@
             row.add("zhongtong");
             row.add("78564311");
             rows.add(row);
+            
+            
+            //加入公式
+            List<ExcelCellType> excelCellTypes=new ArrayList<>();
+            ExcelCellType excelCellType=new ExcelCellType();
+            excelCellType.setColumnIndex(2); //从0开始
+            excelCellType.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+            excelCellType.setCellFormula("HYPERLINK(\"#"+tablen+"!A1\",\""+tablen+"\")"); //公式超链接
+            excelCellTypes.add(excelCellType);
+
+
+            ExcelFontStyle excelFontStyle=new ExcelFontStyle();
+
+            excelFontStyle.setExcelCellTypeList(excelCellTypes);
+            excelFontStyles.add(excelFontStyle);
+            
+            
             //设置每列宽带
             Integer widths[]=new Integer[]{3300, 5300,0,0};
             List<Integer> colwidth = new ArrayList<>();
@@ -61,6 +82,7 @@
             data.setColsHight(Short.parseShort("450"));
 
             data.setRows(rows);
+            data.setRowStyle(excelFontStyles);
             dataList.add(data);
             ExcelUtils.exportExcel(response, "批量导入运单模板.xlsx", dataList);
         } catch (Exception e) {
