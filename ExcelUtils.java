@@ -608,7 +608,7 @@ public class ExcelUtils {
     }
 
     private static int writeRowsToExcel(XSSFWorkbook wb, Sheet sheet, List<List<Object>> rows, List<ExcelFontStyle> rowStytle, int rowIndex, List<ExcelMergedRegion> rowsMergedRegions) {
-        int colIndex = 0;
+       int colIndex = 0;
 
         int startRow = rowIndex;
 
@@ -620,7 +620,7 @@ public class ExcelUtils {
             Row dataRow = sheet.createRow(rowIndex);
 
 
-            if (CollectionUtil.isNotBlank(rowStytle) && i < rowStytle.size()) {
+            if (!CollectionUtils.isEmpty(rowStytle) && i < rowStytle.size()) {
                 if (Optional.ofNullable(rowStytle.get(i).getFontName()).isPresent()) {
                     dataFont.setFontName(rowStytle.get(i).getFontName());
                 } else {
@@ -628,6 +628,7 @@ public class ExcelUtils {
                 }
 
                 dataFont.setBold(rowStytle.get(i).isBold());
+
 
                 if (rowStytle.get(i).getFontHeightInPoints() != 0) {
                     dataFont.setFontHeightInPoints(rowStytle.get(i).getFontHeightInPoints());
@@ -708,11 +709,55 @@ public class ExcelUtils {
             colIndex = 0;
 
 
-            if (CollectionUtil.isNotBlank(rowData)) {
-                for (Object cellData : rowData) {
+            Function<Object, Boolean> is_Empty = o -> {
+                if (o == null) {
+                    return false;
+                }
+
+
+                List excelCellTypeList = ((ExcelFontStyle) o).getExcelCellTypeList();
+                if (CollectionUtils.isEmpty(excelCellTypeList)) {
+                    return false;
+                } else {
+                    return true;
+                }
+
+
+            };
+
+            if (!CollectionUtils.isEmpty(rowData)) {
+                label:
+                for (int column_index = 0; column_index < rowData.size(); column_index++) {
+
+                    // System.out.println(column_index+"   "+rowData.size());
                     Cell cell = dataRow.createCell(colIndex);
+                    Object cellData = rowData.get(column_index);
+
                     if (cellData != null) {
-                        cell.setCellValue(cellData.toString());
+
+                        if (!is_Empty.apply(rowStytle != null && rowStytle.size() > 0 ? rowStytle.get(i) : null)) {
+                            cell.setCellValue(cellData.toString());
+                        } else {
+
+                            List<ExcelCellType> excelCellTypeLis = rowStytle.get(i).getExcelCellTypeList();
+
+				//采用单元格公式
+                            for (ExcelCellType excelCellType : excelCellTypeLis) {
+                                if (excelCellType.getColumnIndex() == column_index) {
+                                    cell.setCellType(excelCellType.getCellType());
+                                    cell.setCellFormula(excelCellType.getCellFormula());
+
+                                    dataStyle.setWrapText(true);
+                                    cell.setCellStyle(dataStyle);
+                                    colIndex++;
+                                    continue  label;
+                                }
+                            }
+
+                            //没找到样式 ,继续
+                            cell.setCellValue(cellData.toString());
+
+                        }
                     } else {
                         cell.setCellValue("");
                     }
@@ -723,7 +768,7 @@ public class ExcelUtils {
                 }
             }
             //行列合并 区域
-            if (CollectionUtil.isNotBlank(rowsMergedRegions) && i < rowsMergedRegions.size() && rowsMergedRegions.get(i).isMerged()) {
+            if (!CollectionUtils.isEmpty(rowsMergedRegions) && i < rowsMergedRegions.size() && rowsMergedRegions.get(i).isMerged()) {
                 sheet.addMergedRegion(new CellRangeAddress(rowsMergedRegions.get(i).getFirstRow() + startRow, rowsMergedRegions.get(i).getLastRow() + startRow, rowsMergedRegions.get(i).getFirstCol(), rowsMergedRegions.get(i).getLastCol()));
             }
 
