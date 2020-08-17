@@ -61,7 +61,7 @@
             //加入公式
             List<ExcelCellType> excelCellTypes=new ArrayList<>();
             ExcelCellType excelCellType=new ExcelCellType();
-            excelCellType.setColumnIndex(2); //从0开始
+            excelCellType.setColumnIndex(2); //从0开始  第3列
             excelCellType.setCellType(HSSFCell.CELL_TYPE_FORMULA);
             excelCellType.setCellFormula("HYPERLINK(\"#"+tablen+"!A1\",\""+tablen+"\")"); //公式超链接
             excelCellTypes.add(excelCellType);
