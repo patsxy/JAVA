@@ -613,12 +613,7 @@ public class ExcelUtils {
         int startRow = rowIndex;
 
         Function<Object, Boolean> is_not_Empty = o -> {
-            if (o == null) {
-                return false;
-            }
-
-
-
+           
          return    Optional.ofNullable(o).map(m->
                      !CollectionUtils.isEmpty( ((ExcelFontStyle) m).getExcelCellTypeList())
             ).orElse(false);
