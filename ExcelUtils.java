@@ -612,6 +612,22 @@ public class ExcelUtils {
 
         int startRow = rowIndex;
 
+        Function<Object, Boolean> is_Empty = o -> {
+            if (o == null) {
+                return false;
+            }
+
+
+
+         return    Optional.ofNullable(o).map(m->
+                     !CollectionUtils.isEmpty( ((ExcelFontStyle) m).getExcelCellTypeList())
+            ).orElse(false);
+            
+        };
+
+	    
+	    
+	    
         for (int i = 0; i < rows.size(); i++) {
             List<Object> rowData = rows.get(i);
             Font dataFont = wb.createFont();
@@ -709,21 +725,6 @@ public class ExcelUtils {
             colIndex = 0;
 
 
-            Function<Object, Boolean> is_Empty = o -> {
-                if (o == null) {
-                    return false;
-                }
-
-
-                List excelCellTypeList = ((ExcelFontStyle) o).getExcelCellTypeList();
-                if (CollectionUtils.isEmpty(excelCellTypeList)) {
-                    return false;
-                } else {
-                    return true;
-                }
-
-
-            };
 
             if (!CollectionUtils.isEmpty(rowData)) {
                 label:
